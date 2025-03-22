@@ -49,9 +49,11 @@ const Modal = ({
     };
 
     const trapFocus = (event) => {
+      if (!modalRef.current) return;
       const focusableElements = modalRef.current.querySelectorAll(
         'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
       );
+
       const firstElement = focusableElements[0];
       const lastElement = focusableElements[focusableElements.length - 1];
 
@@ -63,6 +65,12 @@ const Modal = ({
         firstElement.focus();
       }
     };
+
+    setTimeout(() => {
+      modalRef.current
+        ?.querySelector('button, [href], input, select, textarea')
+        ?.focus();
+    }, 0);
 
     if (isOpen) {
       document.addEventListener('keydown', handleKeyDown);

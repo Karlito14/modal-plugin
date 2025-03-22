@@ -62,7 +62,7 @@ var Modal = function Modal(_ref) {
     onClose = _ref.onClose,
     children = _ref.children,
     _ref$overlayClassName = _ref.overlayClassName,
-    overlayClassName = _ref$overlayClassName === undefined ? '' : _ref$overlayClassName,
+    overlayClassName = _ref$overlayClassName === undefined ? 'overlay' : _ref$overlayClassName,
     _ref$modalClassName = _ref.modalClassName,
     modalClassName = _ref$modalClassName === undefined ? 'modal' : _ref$modalClassName,
     _ref$buttonClassName = _ref.buttonClassName,
@@ -78,6 +78,7 @@ var Modal = function Modal(_ref) {
       }
     };
     var trapFocus = function trapFocus(event) {
+      if (!modalRef.current) return;
       var focusableElements = modalRef.current.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
       var firstElement = focusableElements[0];
       var lastElement = focusableElements[focusableElements.length - 1];
@@ -89,6 +90,10 @@ var Modal = function Modal(_ref) {
         firstElement.focus();
       }
     };
+    setTimeout(function () {
+      var _modalRef$current;
+      (_modalRef$current = modalRef.current) === null || _modalRef$current === undefined || (_modalRef$current = _modalRef$current.querySelector('button, [href], input, select, textarea')) === null || _modalRef$current === undefined || _modalRef$current.focus();
+    }, 0);
     if (isOpen) {
       document.addEventListener('keydown', handleKeyDown);
     }
